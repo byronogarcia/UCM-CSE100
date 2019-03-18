@@ -1,4 +1,5 @@
 #include <iostream>
+<<<<<<< HEAD
 #include <vector>
 #include <string>
 
@@ -52,5 +53,18 @@ int main() {
     for (int i = 0; i < size; i++) {
         cout << A[i] << ";";
     }
+=======
+
+using namespace std;
+
+int Heapsort(A) {
+	BuildMaxHeap(A);
+
+	for (int i = A.length(); i >= 1; i--) {
+	
+
+	}
+
+>>>>>>> c31cfdcb4a2810641fb7282abb4977dbe927cb85
 
 }
