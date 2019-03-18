@@ -2,17 +2,12 @@
 
 using namespace std;
 
-int maximum(int a, int b, int c) {
-	if (a >= b && a >= c) {
-		return a;
-	}
-	else if (b >= a && b >= c) {
-		return b;
-	}
-	else {
-		return c;
-	}
-}
+/*
+Took out maximum function that mightve messed with compilation. It
+compiled in Linux and worked with the two functions FindMaxCrossSubarray
+as well as FindMaxSubarray. The finding max like functino is at the
+bottom of FindMaxSubarray
+*/
 
 int FindMaxCrossSubarray(int A[], int low, int mid, int high) {
 	int leftSum = INT_MIN; //negative infinity = -2147483647
@@ -24,9 +19,9 @@ int FindMaxCrossSubarray(int A[], int low, int mid, int high) {
 
 		if (sum > leftSum) {
 			leftSum = sum;
-			maxLeft = i;
+			//maxLeft = i;
+		}
 	}
-}
 
 	int rightSum = INT_MIN; //negative infinity = -2147483647
 	sum = 0;
@@ -37,22 +32,45 @@ int FindMaxCrossSubarray(int A[], int low, int mid, int high) {
 
 		if (sum > rightSum) {
 			rightSum = sum;
-			maxRight = j;
+			//maxRight = j;
 		}
 
 	}
 
-	return leftSum + rightSum;
+	return leftSum + rightSum; 
+	/*
+	Instead of returning (max-left, max-right, left-sum + right-sum)
+	I just return leftSum + rightSum, since that is what I have been
+	using for this algorithm. Another example of thios is below with
+	int leftSum, rightSum, crossSum. 
+	*/
 }
 
 int FindMaxSubarray(int A[], int low, int high) {
-	if (high == low) {
-		return A[low];
-	}
 
+	if (high == low) {
+		return A[low]; //base case: only opne element
+	}
+	else {
 	int mid = (low + high)/2;
 
-	return maximum(FindMaxSubarray(A, low, mid), FindMaxSubarray(A, mid + 1, high), FindMaxCrossSubarray(A, low, mid, high));
+	//not sure how to implement (left-low, left-high, left-sum) or the right/cross alternatives
+	int leftSum = FindMaxSubarray(A, low, mid); //Used int Sums instead
+	int rightSum = FindMaxSubarray(A, mid + 1, high);
+	int crossSum = FindMaxCrossSubarray(A, low, mid, high);
+
+	//Finding the max of the three rightsum, leftsum, and crosssum
+	if (leftSum >= rightSum && leftSum >= crossSum) {
+		return leftSum;
+	}
+	else if (rightSum >= leftSum && rightSum >= crossSum) {
+		return rightSum;
+	}
+	else {
+		return crossSum;
+	}
+
+	}
 }
 
 
